@@ -5,10 +5,13 @@ import os
 
 load_dotenv()
 
-api_key = os.getenv("GROQ_API_KEY") or os.getenv("OPENAI_API_KEY")
-base_url = os.getenv("GROQ_BASE_URL")
+api_key = os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("OPENAI_BASE_URL")
 if not api_key:
-    raise RuntimeError("Set GROQ_API_KEY before running this script.")
+    raise RuntimeError("Set OPENAI_API_KEY before running this script.")
+
+if not base_url:
+    raise RuntimeError("Set OPENAI_BASE_URL before running this script.")
 
 client = OpenAI(
     api_key=api_key,
