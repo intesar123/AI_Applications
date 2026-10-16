@@ -11,14 +11,16 @@ blob_service_client = BlobServiceClient.from_connection_string(
 
 # Create a container
 container_name = "test-container"
-container_client = blob_service_client.create_container(container_name)
+container_client = blob_service_client.get_container_client(container_name)
+if not container_client.exists():
+    container_client.create_container()
 
 # Upload a blob to the container
-blob_name = "test-blob.txt"
+blob_name = "test-blob2.txt"
 blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
 sample_dir = Path(__file__).resolve().parent
-with (sample_dir / "test-blob.txt").open("rb") as data:
-    blob_client.upload_blob(data)
+with (sample_dir / "test-blob2.txt").open("rb") as data:
+    blob_client.upload_blob(data, overwrite=True)
 
 # List blobs in the container
 print("Blobs in container:")
@@ -26,7 +28,7 @@ for blob in container_client.list_blobs():
     print(blob.name)
 
 # Download the blob
-with (sample_dir / "downloaded-test-blob.txt").open("wb") as download_file:
+with (sample_dir / "downloaded-test-blob2.txt").open("wb") as download_file:
     download_file.write(blob_client.download_blob().readall())
 
 print("Blob downloaded successfully.")

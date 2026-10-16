@@ -35,8 +35,7 @@ Run from this directory:
 python blobStorageTest.py
 ```
 
-The script creates the `test-container` container. If that container already
-exists, use a new container name in the script or remove the existing
-container from Azurite before running it again. The input and output files are
+The script creates the `test-container` container only if it does not already
+exist, and overwrites the blob on reruns. The input and output files are
 resolved relative to the script, so the command can also be run from the
 `AzureStorage` directory with `python BlobStorage\blobStorageTest.py`.
