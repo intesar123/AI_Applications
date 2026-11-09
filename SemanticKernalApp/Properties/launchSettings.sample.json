@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Development": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENDPOINT": "https://api.groq.com/openai/v1",
+        "API_KEY": "<<----Replace me------>>",
+        "MODEL_ID": "openai/gpt-oss-20b"
+      }
+    }
+  }
+}
