@@ -5,3 +5,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+SemanticKernelApp/bin/
+SemanticKernelApp/obj/
+SemanticKernelApp/Properties/launchSettings.json
+groqAI_API_ConnectionTest/.env
