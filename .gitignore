@@ -9,3 +9,9 @@ SemanticKernelApp/bin/
 SemanticKernelApp/obj/
 SemanticKernelApp/Properties/launchSettings.json
 groqAI_API_ConnectionTest/.env
+VectorDBTest/bin/
+VectorDBTest/obj/
+VectorDBTest/appSettings.json
+GeminiAIGenerateEmbeding/bin/
+GeminiAIGenerateEmbeding/obj/
+GeminiAIGenerateEmbeding/appSettings.json
