@@ -22,42 +22,42 @@ var openAiApiKey = openAiConfig["ApiKey"];
 var openAiEndpoint = openAiConfig["Endpoint"];
 var openAiEmbeddingDeployment = openAiConfig["EmbeddingDeployment"];
 
-List<Product> products = SampleData.GetProducts();
+// List<Product> products = SampleData.GetProducts();
 
 var embeddingService = new EmbeddingService(openAiEndpoint, openAiApiKey, openAiEmbeddingDeployment);
 var cosmosService = new CosmosService(cosmosDbAccountEndpoint, cosmosDbAccountKey, cosmosDbDatabaseName, cosmosDbContainerName);
-// Insert products into the database or perform other operations
-foreach (var product in products)
-{
-    product.descriptionVector = await embeddingService.GenerateEmbeddingAsync(product.Description);
-    Console.WriteLine($"Generated embedding for product: {product.Name} with {product.descriptionVector.Length} dimensions.");
+// // Insert products into the database or perform other operations
+// foreach (var product in products)
+// {
+//     product.descriptionVector = await embeddingService.GenerateEmbeddingAsync(product.Description);
+//     Console.WriteLine($"Generated embedding for product: {product.Name} with {product.descriptionVector.Length} dimensions.");
 
-    await cosmosService.InsertAsync(product);
+//     await cosmosService.InsertAsync(product);
 
-}
-Console.WriteLine("All products have been processed and inserted into Cosmos DB.");
+// }
+// Console.WriteLine("All products have been processed and inserted into Cosmos DB.");
 
 
 //-----------------Search Data ---------------------------------
 
-// var vectorSearchService = new VectorSearchService(cosmosService.GetContainer());
+var vectorSearchService = new VectorSearchService(cosmosService.GetContainer());
 
-// Console.WriteLine();
-// Console.WriteLine("Enter a search query:");
+Console.WriteLine();
+Console.WriteLine("Enter a search query:");
 
-// // Example search query
-// var query = Console.ReadLine();
+// Example search query
+var query = Console.ReadLine();
 
-// if (!string.IsNullOrWhiteSpace(query))
-// {
-//     var queryVector = await embeddingService.GenerateEmbeddingAsync(query);
+if (!string.IsNullOrWhiteSpace(query))
+{
+    var queryVector = await embeddingService.GenerateEmbeddingAsync(query);
 
-//     Console.WriteLine($"Generated query vector with {queryVector.Length} dimensions.");
+    Console.WriteLine($"Generated query vector with {queryVector.Length} dimensions.");
 
-//     Console.WriteLine();
-//     Console.WriteLine("Vector Search Results");
-//     Console.WriteLine("=====================");
+    Console.WriteLine();
+    Console.WriteLine("Vector Search Results");
+    Console.WriteLine("=====================");
 
-//     await vectorSearchService.SearchAsync(queryVector, topK: 5);
+    await vectorSearchService.SearchAsync(queryVector, topK: 5);
 
-// }
+}

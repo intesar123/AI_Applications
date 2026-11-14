@@ -40,6 +40,11 @@ namespace VectorDBTest
                 }
             };
 
+            containerProperties.IndexingPolicy.IncludedPaths.Add(new IncludedPath
+            {
+                Path = "/*"
+            });
+
             // Don't use normal normal indexing for the vector array
             containerProperties.IndexingPolicy.ExcludedPaths.Add(new ExcludedPath
             {
