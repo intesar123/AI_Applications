@@ -3,6 +3,7 @@
 using System.ClientModel;
 using OpenAI;
 using OpenAI.Embeddings;
+using VectorDBTest;
 
 var path = Path.Combine(AppContext.BaseDirectory, "appSettings.json");
 var json = File.ReadAllText(path);
@@ -21,20 +22,42 @@ var openAiApiKey = openAiConfig["ApiKey"];
 var openAiEndpoint = openAiConfig["Endpoint"];
 var openAiEmbeddingDeployment = openAiConfig["EmbeddingDeployment"];
 
-var clientOptions = new OpenAIClientOptions
+List<Product> products = SampleData.GetProducts();
+
+var embeddingService = new EmbeddingService(openAiEndpoint, openAiApiKey, openAiEmbeddingDeployment);
+var cosmosService = new CosmosService(cosmosDbAccountEndpoint, cosmosDbAccountKey, cosmosDbDatabaseName, cosmosDbContainerName);
+// Insert products into the database or perform other operations
+foreach (var product in products)
 {
-    Endpoint = new Uri(openAiEndpoint)
-};
+    product.descriptionVector = await embeddingService.GenerateEmbeddingAsync(product.Description);
+    Console.WriteLine($"Generated embedding for product: {product.Name} with {product.descriptionVector.Length} dimensions.");
 
-var embeddingClient = new EmbeddingClient(
-            model: openAiEmbeddingDeployment, // "gemini-embedding-001" Or "gemini-embedding-2"
-            credential: new ApiKeyCredential(openAiApiKey),
-            options: clientOptions
-        );
+    await cosmosService.InsertAsync(product);
 
-OpenAIEmbedding embedding = await embeddingClient.GenerateEmbeddingAsync(
-           "How do I pair Gemini embeddings with Groq?"
-       );
+}
+Console.WriteLine("All products have been processed and inserted into Cosmos DB.");
 
-ReadOnlyMemory<float> vector = embedding.ToFloats();
-Console.WriteLine($"Generated embedding with {vector.Length} dimensions.");
+
+//-----------------Search Data ---------------------------------
+
+// var vectorSearchService = new VectorSearchService(cosmosService.GetContainer());
+
+// Console.WriteLine();
+// Console.WriteLine("Enter a search query:");
+
+// // Example search query
+// var query = Console.ReadLine();
+
+// if (!string.IsNullOrWhiteSpace(query))
+// {
+//     var queryVector = await embeddingService.GenerateEmbeddingAsync(query);
+
+//     Console.WriteLine($"Generated query vector with {queryVector.Length} dimensions.");
+
+//     Console.WriteLine();
+//     Console.WriteLine("Vector Search Results");
+//     Console.WriteLine("=====================");
+
+//     await vectorSearchService.SearchAsync(queryVector, topK: 5);
+
+// }
