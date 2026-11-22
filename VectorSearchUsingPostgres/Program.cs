@@ -1,50 +1,24 @@
 ﻿using Npgsql;
 using OpenAI.Embeddings;
 using Pgvector;
+using VectorSearchUsingPostgres;
 
-var connectionString = "Host=localhost;Port=5432;Database=vectordb;Username=postgres;Password=your_password";
-var openAiApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!;
+var path = Path.Combine(AppContext.BaseDirectory,"appSettings.json");
+var json = File.ReadAllText(path);
+var configuration = System.Text.Json.JsonSerializer.Deserialize<Configuration>(json)!;
 
-// 1. Configure Npgsql with pgvector support
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
-dataSourceBuilder.UseVector();
-await using var dataSource = dataSourceBuilder.Build();
+var embeddingService = new EmbeddingService(configuration.OpenAI.Endpoint,configuration.OpenAI.ApiKey, configuration.OpenAI.EmbeddingDeployment);
+PostgresService postgresService = new PostgresService(configuration.PostgresDB.ConnectionString, embeddingService);
 
-// 2. Initialize OpenAI EmbeddingClient
-var embeddingClient = new EmbeddingClient("text-embedding-3-small", openAiApiKey);
+// create table if it does not exist
+await postgresService.CreateTable();
+// ------------ insert data to the documents table - uncomment to insert sample data
+//await postgresService.InsertData(string.Empty);
 
-// 3. Generate and insert embeddings
-string[] sampleTexts = [
-    "PostgreSQL is an open-source relational database.",
-    "pgvector adds vector similarity search to Postgres.",
-    "C# and .NET are great for building scalable backends."
-];
-
-await using var conn = await dataSource.OpenConnectionAsync();
-
-foreach (var text in sampleTexts)
-{
-    OpenAIEmbedding embeddingResult = await embeddingClient.GenerateEmbeddingAsync(text);
-    var vector = new Vector(embeddingResult.ToFloats());
-
-    await using var insertCmd = new NpgsqlCommand(
-        "INSERT INTO documents (content, embedding) VALUES ($1, $2)", conn);
-    insertCmd.Parameters.AddWithValue(text);
-    insertCmd.Parameters.AddWithValue(vector);
-    await insertCmd.ExecuteNonQueryAsync();
-}
-
-// 4. Query by semantic similarity using Cosine Distance (<=>)
+// ------------ search for similar documents
 var queryText = "How do I store vectors in Postgres?";
-OpenAIEmbedding queryEmbeddingResult = await embeddingClient.GenerateEmbeddingAsync(queryText);
-var queryVector = new Vector(queryEmbeddingResult.ToFloats());
-
-await using var searchCmd = new NpgsqlCommand(
-    "SELECT content, 1 - (embedding <=> $1) AS similarity FROM documents ORDER BY embedding <=> $1 LIMIT 3", conn);
-searchCmd.Parameters.AddWithValue(queryVector);
-
-await using var reader = await searchCmd.ExecuteReaderAsync();
-while (await reader.ReadAsync())
+var results = await postgresService.SearchAsync(queryText);
+foreach (var result in results)
 {
-    Console.WriteLine($"Score: {reader.GetDouble(1):F4} | Content: {reader.GetString(0)}");
+    Console.WriteLine(result);
 }

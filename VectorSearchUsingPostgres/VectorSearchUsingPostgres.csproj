@@ -13,5 +13,7 @@
     <PackageReference Include="Npgsql" Version="11.0.0" />
     <PackageReference Include="Pgvector" Version="0.3.2" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Update="appSettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

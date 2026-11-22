@@ -1,6 +1,7 @@
 using System.ClientModel;
 using OpenAI;
 using OpenAI.Embeddings;
+using Pgvector;
 
 namespace VectorSearchUsingPostgres
 {
@@ -21,11 +22,11 @@ namespace VectorSearchUsingPostgres
                     );
         }
 
-        public async Task<float[]> GenerateEmbeddingAsync(string input)
+        public async Task<Vector> GenerateEmbeddingAsync(string input)
         {
             OpenAIEmbedding response = await _embeddingClient.GenerateEmbeddingAsync(input);
-            ReadOnlyMemory<float> vector = response.ToFloats();
-            return vector.ToArray();
+            var vector = new Vector(response.ToFloats());
+            return vector;
         }
     }
 }
