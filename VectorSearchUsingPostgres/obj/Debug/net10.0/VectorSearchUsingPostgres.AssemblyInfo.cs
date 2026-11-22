@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VectorSearchUsingPostgres")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36cdecaa7738972cba82eba3c96366f0dec0ee43")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc64928ab04ac4f6a02c5d360cfe593207e59285")]
 [assembly: System.Reflection.AssemblyProductAttribute("VectorSearchUsingPostgres")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VectorSearchUsingPostgres")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
