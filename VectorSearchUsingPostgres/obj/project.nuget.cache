@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ew70G84pmzQ=",
+  "dgSpecHash": "m/diWirGIOI=",
   "success": true,
-  "projectFilePath": "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
+  "projectFilePath": "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alamk\\.nuget\\packages\\azure.ai.openai\\2.1.0\\azure.ai.openai.2.1.0.nupkg.sha512",
     "C:\\Users\\alamk\\.nuget\\packages\\azure.core\\1.44.1\\azure.core.1.44.1.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj": {}
+    "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj": {}
   },
   "projects": {
-    "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj": {
+    "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
         "projectName": "VectorSearchUsingPostgres",
-        "projectPath": "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
+        "projectPath": "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\VectorSearchUsingPostgres.csproj",
         "packagesPath": "C:\\Users\\alamk\\.nuget\\packages\\",
-        "outputPath": "d:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\obj\\",
+        "outputPath": "D:\\Projects\\GitHub\\AI_Applications\\VectorSearchUsingPostgres\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
