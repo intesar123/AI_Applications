@@ -18,3 +18,8 @@ GeminiAIGenerateEmbeding/appSettings.json
 VectorSearchUsingPostgres/obj/
 VectorSearchUsingPostgres/bin/
 VectorSearchUsingPostgres/appSettings.json
+RAGPipeline/obj/
+RAGPipeline/bin/
+RAGPipeline/appSettings.json
+/RAGPipeline/appsettings.Development.json
+RAGPipeline/.vs/

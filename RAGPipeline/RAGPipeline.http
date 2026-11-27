@@ -1,0 +1,11 @@
+@RAGPipeline_HostAddress = http://localhost:5087
+
+GET {{RAGPipeline_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{RAGPipeline_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
